@@ -5,7 +5,7 @@ describe('ステージ6（意図通りにモジュールを書ける）', functi
     // ボタンはサービスです。
     // 自由に使ってください。
 
-    var qualityOfYourAppliation = undefined;
+    var qualityOfYourAppliation = true;
 
     expect(qualityOfYourAppliation).to.be.ok;
   });
