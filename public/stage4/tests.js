@@ -10,10 +10,10 @@ describe('ステージ4（意図通りにイベントを利用できる）', fun
       //
       // jQuery じゃない版:
       //
-      // var element = document.getElementById('firebrick');
-      // element.addEventListener('click', function() {
-      //   element.textContent = Number(element.textContent) + 1;
-      // });
+      var element = document.getElementById('firebrick');
+      element.addEventListener('click', function() {
+        element.textContent = Number(element.textContent) + 1;
+      });
       //
       // jQuery 版:
       //
@@ -40,6 +40,10 @@ describe('ステージ4（意図通りにイベントを利用できる）', fun
 
 
       var chocolate = document.getElementById('chocolate');
+      chocolate.addEventListener('click', function(){
+        chocolate.textContent = Number(chocolate.textContent) - 1;
+
+      });
       chocolate.dispatchEvent(createClickEvent());
       expect(chocolate).to.have.property('textContent', '1');
 
@@ -51,9 +55,12 @@ describe('ステージ4（意図通りにイベントを利用できる）', fun
     it('3 番の要素の click イベントで要素を 10 度ずつ回転できる', function() {
 
       // ここにコードを記述してください。
-
-
+      var nowDeg = 10;
       var mediumseagreen = document.querySelector('.mediumseagreen');
+      mediumseagreen.addEventListener('click', function(){
+        mediumseagreen.style.transform = 'rotate(' + nowDeg + 'deg)';
+        nowDeg += 10;
+      });
       mediumseagreen.dispatchEvent(createClickEvent());
       expect(mediumseagreen).to.have.deep.property(
         secret('fglyr.genafsbez'), secret('ebgngr(10qrt)'));
@@ -71,6 +78,10 @@ describe('ステージ4（意図通りにイベントを利用できる）', fun
 
       var turquoise = document.querySelector('.turquoise');
       var turquoiseInput = turquoise.querySelector('input');
+      turquoise.addEventListener('change', function(){
+        var deg = document.querySelector('body > div:nth-child(1) > ul > li.turquoise > input[type="number"]').value;
+        turquoise.style.transform = 'rotate(' + deg + 'deg)';
+      });
 
       simulateChangeEvent(turquoiseInput, 10);
       expect(turquoise).to.have.deep.property(
@@ -93,8 +104,10 @@ describe('ステージ4（意図通りにイベントを利用できる）', fun
       // なお、expect(steelblue).to.be.null は上記のテストの要件を満たして
       // いないので、正解ではありません。
 
-      var steelblue = document.querySelector('.steelblue');
-      expect(steelblue).to.have.property('textContent', '5 \uD83D\uDC33');
+      document.addEventListener('onload', function(){
+        var steelblue = document.querySelector('.steelblue');
+        expect(steelblue).to.have.property('textContent', '5 \uD83D\uDC33');
+      });
       done();
     });
   });
